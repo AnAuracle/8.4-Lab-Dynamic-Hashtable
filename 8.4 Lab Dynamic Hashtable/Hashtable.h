@@ -194,10 +194,11 @@ void Hashtable<Type>::insert(Type value)
 template<class Type>
 void Hashtable<Type>::rehash()
 {
+	int tempsize = size;
 	int oldCapacity = capacity;
 	capacity = nextPrime(capacity * 2);
 	Type* test;
-	test = new Type[size + 1];
+	test = new Type[tempsize + 1];
 	int j = 0;
 	for (int i = 0; i < oldCapacity; i++) {
 		if (!htable[i].empty) {
@@ -208,11 +209,9 @@ void Hashtable<Type>::rehash()
 
 	clear();
 	
-	for (int i = 0; i < size; i++) {
-		cout << test[i];
+	for (int i = 0; i < tempsize; i++) {
+		insert(test[i]);
 	}
-	printtable();
-	cout << "Cap : " << capacity;
 }
 
 /*
